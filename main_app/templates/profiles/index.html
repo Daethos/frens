@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Profile Viewing </h1>
+
+{% for profile in profiles %}
+    <div class="card">
+        <a href="{% url 'detail.profile' profile.id %}">
+            <div class="card-content">
+                <spam class="card-title">{{ profile.name }}</span>
+                <p>Age: {{ profile.age }}</p>
+                <p>Description: {{ profile.description }}</p>
+            </div>
+        </a>
+    </div>
+{% endfor %}
+
+{% for profile in profiles %}
+            {% if profile not in request.profile.frens.all and profile != fren_request.from_profile %}
+            {{ profile }} <a href="/send_fren_request/{{ profile.id }}/">Send Fren Request!!</a>
+            {% endif %}
+            {% for fren_request in all_fren_requests %}
+            {{ fren_request.from_profile }}
+            <a href="/accept_fren_request/{{ fren_request.id }}/">
+                Accept Fren Request!!</a>
+            {% endfor %}
+            {% endfor %}
+
+{% for fren in frens %}
+    <div class="card">
+        <a href="{% url 'detail' fren.id %}">
+            <div class="card-content">
+                <spam class="card-title">'{{ fren.nickname}}' {{ fren.name }}</span>
+                <p>Age: {{ fren.age }}</p>
+                <p>Description: {{ fren.description|linebreaks }}</p>
+                <p>First Met: {{ fren.first_met }}</p>
+                <p>Favorite Trait: {{ fren.favorite_thing }}</p>
+            </div>
+        </a>
+    </div>
+{% endfor %}
+
+{% endblock %}

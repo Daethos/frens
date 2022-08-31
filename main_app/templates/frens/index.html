@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Fren Party</h1>
+
+{% for fren in frens %}
+    <div class="card">
+        <a href="{% url 'detail.fren' fren.id %}">
+            <div class="card-content">
+                <spam class="card-title">'{{ fren.nickname}}' {{ fren.name }}</span>
+                <p>Age: {{ fren.age }}</p>
+                <p>Description: {{ fren.description|linebreaks }}</p>
+                <p>First Met: {{ fren.first_met }}</p>
+                <p>Favorite Trait: {{ fren.favorite_thing }}</p>
+            </div>
+        </a>
+    </div>
+{% endfor %}
+
+{% endblock %}

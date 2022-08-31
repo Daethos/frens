@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+{% for profile in profiles %}
+    <div class="card">
+        <a href="{% url 'detail' profile.id %}">
+            <div class="card-content">
+                <spam class="card-title">{{ profile.name }}</span>
+                <p>Age: {{ profile.age }}</p>
+                <p>Description: {{ profile.description|linebreaks }}</p>
+            </div>
+        </a>
+    </div>
+{% endfor %}
+
+<div class="card">
+    <a href="{% url 'profiles_create' %}">Create Profile!</a>
+</div>
+
+
+{% endblock %}

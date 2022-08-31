@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Profile Details</h1>
+
+<div class="card">
+    <div class="card-content">
+            <spam class="card-title">{{ profile.name }}</span>
+            <p>Age: {{ profile.age }}</p>
+            <p>Description: {{ profile.description|linebreaks }}</p>
+        <div class="card-action">
+            <a href="{% url 'profiles_update' profile.id %}">Edit</a>
+            <a href="{% url 'profiles_delete' profile.id %}">Delete</a>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="col s6">
+<form action="{% url 'add_theme' profile.id %}" method="post">
+    {% csrf_token %}
+    {{ theme_form.as_p }}
+    <input type="submit" class="btn" value="Add Theme">
+</form>
+</div>
+
+<hr>
+    <div class="row">
+        <div class="col s6">
+        <h3>{{ profile.name }}'s Frens !</h3>
+            {% if profile.frens.count %}
+            {% for fren in profile.frens.all %}
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">
+                        <span style="color: teal"></span> {{ fren.name }}
+                        {{ fren.age }}
+                        {{ fren.description }}
+                    </span>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <h5>No frens :(</h5>
+            {% endif %}
+        </div>
+        <!-- Available frens will come after this line -->
+        <div class="col s6">
+            <h3>Available frens !!</h3>
+            {% if frens.count %}
+            {% for fren in frens.all %}
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">
+                            A <span style="color: {{ fren.color }}">{{ fren.color }}</span> {{ fren.name }}
+                        </span>
+                    </div>
+                    <div class="card-action">
+                    <form action="{% url 'request_fren' profile.id fren.id %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn">add fren</button>
+                    </form>
+                    </div>
+                </div>
+            {% endfor %}
+            {% else %}
+                <h5>{{profile.name}} Already Has All frens Available</h5>
+            {% endif %}
+        </div>
+    </div>
+
+
+<script>
+    const dateEl = document.getElementById('id_first_met');
+    M.Datepicker.init(dateEl, {
+        format: 'yyyy-mm-dd',
+        defaultDate: new Date(),
+        setDefaultDate: true,
+        autoClose: true
+    });
+</script>
+
+{% endblock %}
