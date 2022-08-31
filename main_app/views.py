@@ -32,16 +32,29 @@ def frens_detail(request, fren_id):
 
 class ProfileCreate(CreateView):
     model = Profile
-    fields = ['name', 'age', 'description'] # no more __all__ to bypass frenships
+    fields = ['name', 'age', 'description'] # no more __all__ to bypass frens
     success_url = '/profiles/'
 
 class ProfileUpdate(UpdateView):
     model = Profile
-    fields = '__all__'
+    fields = ['name', 'age', 'description']  # '__all__'
 
 class ProfileDelete(DeleteView):
     model = Profile
     success_url = '/profiles/'
+
+class FrenCreate(CreateView):
+    model = Fren
+    fields = ['nickname', 'first_met', 'favorite_thing'] # no more __all__ to bypass frens
+    success_url = '/frens/'
+
+class FrenUpdate(UpdateView):
+    model = Fren
+    fields = ['nickname', 'first_met', 'favorite_thing', 'super_fren_status']  # '__all__'
+
+class FrenDelete(DeleteView):
+    model = Fren
+    success_url = '/frens/'
 
 def add_theme(request, profile_id):
     form = ThemeForm(request.POST)

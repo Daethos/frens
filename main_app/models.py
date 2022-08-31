@@ -5,7 +5,7 @@ class Profile(models.Model):
     name = models.CharField(max_length=24)
     age = models.IntegerField()
     description = models.TextField(max_length=240)
-    # frens = models.ManyToManyField('self', through='Fren')
+    frens = models.ManyToManyField('self', through='Fren')
 
     def __str__(self):
         return self.name
