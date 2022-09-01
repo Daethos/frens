@@ -7,7 +7,7 @@ class Fren(models.Model):
     most_favorite_color = models.CharField(max_length=24, default='Xanadu??')
     first_met = models.DateField()
     favorite_thing = models.TextField(max_length=240)
-    super_fren_status = models.BooleanField('Are you two super frens?!', default=True)
+    super_fren_status = models.BooleanField('Are you two super frens?!')
 
     def __str__(self):
         return self.nickname
@@ -33,7 +33,7 @@ class Theme(models.Model):
     name = models.CharField(max_length=48)
     description = models.TextField(max_length=250)
     favorite_color = models.CharField(max_length=24, default='Blue?')
-    upload = models.ImageField(upload_to='images/')
+    upload = models.ImageField(upload_to='main_app/static/images/')
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
     def __str__(self):

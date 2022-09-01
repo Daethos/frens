@@ -86,7 +86,7 @@
                     <td style="color: {{ theme.favorite_color }}">{{theme.favorite_thing}}</td>
                 </tr>
                 <tr>
-                    <td><img src="{{ theme.upload }}" alt="vsCode Color Theme"></td>
+                    <td><img src="{% static '{{ theme.upload }}' %}" alt="vsCode Color Theme"></td>
                 </tr>
             {% endfor %}
             </tbody>
