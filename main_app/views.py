@@ -17,9 +17,11 @@ def profiles_index(request):
 
 def profiles_detail(request, profile_id):
     profile = Profile.objects.get(id=profile_id)
+    id_list = profile.fren.all().values_list('id')
+    frens_you_dont_have = Fren.objects.exclude(id__in=id_list)
     theme_form = ThemeForm()
     return render(request, 'profiles/detail.html', { 
-        'profile': profile, 'theme_form': theme_form 
+        'profile': profile, 'theme_form': theme_form, 'frens': frens_you_dont_have 
     })
 
 def frens_index(request):
@@ -37,7 +39,7 @@ class ProfileCreate(CreateView):
 
 class ProfileUpdate(UpdateView):
     model = Profile
-    fields = ['name', 'age', 'description']  # '__all__'
+    fields = ['name', 'age', 'description']  # avoids frens preemptively
 
 class ProfileDelete(DeleteView):
     model = Profile
@@ -45,12 +47,13 @@ class ProfileDelete(DeleteView):
 
 class FrenCreate(CreateView):
     model = Fren
-    fields = ['nickname', 'first_met', 'favorite_thing'] # no more __all__ to bypass frens
+    fields = ['nickname', 'first_met', 'favorite_thing', 'super_fren_status'] # no more __all__ to bypass frens
     success_url = '/frens/'
 
 class FrenUpdate(UpdateView):
     model = Fren
     fields = ['nickname', 'first_met', 'favorite_thing', 'super_fren_status']  # '__all__'
+
 
 class FrenDelete(DeleteView):
     model = Fren
@@ -65,5 +68,5 @@ def add_theme(request, profile_id):
     return redirect('detail.profile', profile_id)
 
 def request_fren(request, profile_id, fren_id):
-    Profile.objects.get(id=profile_id).frens.add(fren_id)
+    Profile.objects.get(id=profile_id).fren.add(fren_id)
     return redirect('detail.profile', profile_id=profile_id)

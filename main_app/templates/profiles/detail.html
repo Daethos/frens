@@ -29,20 +29,26 @@
     <div class="row">
         <div class="col s6">
         <h3>{{ profile.name }}'s Frens !</h3>
-            {% if profile.frens.count > 0 %}
-            {% for fren in profile.frens.all %}
+            {% if profile.fren.count %}
+            {% for fr in profile.fren.all %}
             <div class="card">
                 <div class="card-content">
                     <span class="card-title">
-                        <span style="color: teal"></span> {{ fren.nickname }}
-                        {{ fren.age }}
-                        {{ fren.description }}
+                        <span style="color: teal"></span> {{ fr.nickname }}
+                        <p>{{ fr.first_met }}</p>
+                        <p>{{ fr.favorite_thing }}</p>
+                        <h3>Super frens?!: {{ fr.super_fren_status }}</h3>
                     </span>
                 </div>
             </div>
             {% endfor %}
             {% else %}
             <h5>No frens :( </h5>
+            <div class="card">
+                <div class="card-content">
+                    <a href="{% url 'frens_create' %}" id="add-fren-link">Add a Fren!</a>
+                </div>
+            </div>
             {% endif %}
         </div>
         <!-- Available frens will come after this line -->
@@ -53,7 +59,7 @@
                 <div class="card">
                     <div class="card-content">
                         <span class="card-title">
-                            A <span style="color: {{ fren.color }}">{{ fren.color }}</span> {{ fren.name }}
+                            A <span style="">{{ fren.color }}</span> {{ fren.nickname }}
                         </span>
                     </div>
                     <div class="card-action">

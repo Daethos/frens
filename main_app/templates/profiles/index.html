@@ -26,7 +26,7 @@
             {% endfor %}
             {% endfor %}
 
-{% for fren in frens %}
+{% comment %} {% for fren in frens %}
     <div class="card">
         <a href="{% url 'detail' fren.id %}">
             <div class="card-content">
@@ -38,6 +38,6 @@
             </div>
         </a>
     </div>
-{% endfor %}
+{% endfor %} {% endcomment %}
 
 {% endblock %}
