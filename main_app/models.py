@@ -4,6 +4,7 @@ from django.urls import reverse
 class Fren(models.Model):
     # name = models.ManyToManyField(Profile)
     nickname = models.CharField(max_length=24)
+    most_favorite_color = models.CharField(max_length=24, default='Xanadu??')
     first_met = models.DateField()
     favorite_thing = models.TextField(max_length=240)
     super_fren_status = models.BooleanField('Are you two super frens?!', default=True)

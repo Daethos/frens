@@ -47,12 +47,12 @@ class ProfileDelete(DeleteView):
 
 class FrenCreate(CreateView):
     model = Fren
-    fields = ['nickname', 'first_met', 'favorite_thing', 'super_fren_status'] # no more __all__ to bypass frens
+    fields = ['nickname', 'most_favorite_color', 'first_met', 'favorite_thing', 'super_fren_status'] # no more __all__ to bypass frens
     success_url = '/frens/'
 
 class FrenUpdate(UpdateView):
     model = Fren
-    fields = ['nickname', 'first_met', 'favorite_thing', 'super_fren_status']  # '__all__'
+    fields = ['nickname', 'most_favorite_color', 'first_met', 'favorite_thing', 'super_fren_status']  # '__all__'
 
 
 class FrenDelete(DeleteView):

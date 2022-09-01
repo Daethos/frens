@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
 
 <h1>Profile Details</h1>
@@ -15,16 +16,6 @@
     </div>
 </div>
 
-
-
-<div class="col s6">
-<form action="{% url 'add_theme' profile.id %}" method="post">
-    {% csrf_token %}
-    {{ theme_form.as_p }}
-    <input type="submit" class="btn" value="Add Theme">
-</form>
-</div>
-
 <hr>
     <div class="row">
         <div class="col s6">
@@ -34,10 +25,10 @@
             <div class="card">
                 <div class="card-content">
                     <span class="card-title">
-                        <span style="color: teal"></span> {{ fr.nickname }}
-                        <p>{{ fr.first_met }}</p>
-                        <p>{{ fr.favorite_thing }}</p>
-                        <h3>Super frens?!: {{ fr.super_fren_status }}</h3>
+                        <span style="color: {{ fr.most_favorite_color }}"><strong>{{ fr.nickname }}</strong></span>
+                        <p>We first met: {{ fr.first_met }}</p>
+                        <p>My favorite thing about them is: {{ fr.favorite_thing }}</p>
+                        <p>Are you two... Super frens?!:</p> <h3 style="color: {{ fr.most_favorite_color }}">{{ fr.super_fren_status|yesno:'Hells yeah!,no way !!' }}</h3>
                     </span>
                 </div>
             </div>
@@ -59,7 +50,7 @@
                 <div class="card">
                     <div class="card-content">
                         <span class="card-title">
-                            A <span style="">{{ fren.color }}</span> {{ fren.nickname }}
+                            <span style="color: {{ fren.most_favorite_color }}"><strong>{{ fren.nickname }}</strong></span>
                         </span>
                     </div>
                     <div class="card-action">
@@ -76,6 +67,31 @@
         </div>
     </div>
 
+    <div class="col s6">
+        <form action="{% url 'add_theme' profile.id %}" method="post">
+            {% csrf_token %}
+            {{ theme_form.as_p }}
+            <input type="submit" class="btn" value="Add Theme">
+        </form>
+
+        <table class="striped">
+            <thead>
+                <tr><th>Name</th><th>Description</th><th>Favorite Thing</th></tr>
+            </thead>
+            <tbody>
+            {% for theme in profile.theme_set.all %}
+                <tr>
+                    <td style="color: {{ theme.favorite_color }}">{{theme.name}}</td>
+                    <td style="color: {{ theme.favorite_color }}">{{theme.description}}</td>
+                    <td style="color: {{ theme.favorite_color }}">{{theme.favorite_thing}}</td>
+                </tr>
+                <tr>
+                    <td><img src="{{ theme.upload }}" alt="vsCode Color Theme"></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
 <script>
     const dateEl = document.getElementById('id_first_met');

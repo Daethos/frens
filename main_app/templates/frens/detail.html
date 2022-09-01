@@ -5,8 +5,8 @@
 
 <div class="card">
     <div class="card-content">
-        <spam class="card-title">'{{ fren.nickname}}' {{ fren.name }}</span>
-        <p>Age: {{ fren.age }}</p>
+        <spam class="card-title" style="color: {{ fren.most_favorite_color }}">'{{ fren.nickname}}'</span>
+        <p style="color: {{ fren.most_favorite_color }}">Most Favorite Color: {{ fren.most_favorite_color }}</p>
         <p>Description: {{ fren.description|linebreaks }}</p>
         <p>First Met: {{ fren.first_met }}</p>
         <p>Favorite Trait: {{ fren.favorite_thing }}</p>
